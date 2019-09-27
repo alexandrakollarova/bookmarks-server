@@ -66,7 +66,7 @@ bookmarksRouter
 
 bookmarksRouter
     .route('/bookmarks/:id')
-    .get((req, res) => {
+    .get((req, res, next) => {
       const { bookmark_id } = req.params;
       BookmarksService.getById(req.app.get('db'), bookmark_id)
       .then(bookmark => {

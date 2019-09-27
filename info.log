@@ -30,3 +30,11 @@
 {"message":"Description is required","level":"error"}
 {"message":"Unauthorized request to path: /bookmarks","level":"error"}
 {"message":"Unauthorized request to path: /bookmarks/e439082b-dfe1-40a4-88eb-07155ccabca3","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks/d6b57f60-fab5-4e88-9f64-99d37216e2db","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks/b3e26248-721e-4c3a-be77-9c65713bab10","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks/934b7f83-6543-4bae-8efd-c2d7268c6e67","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks/5eac0eca-c3fe-48f4-8eba-4a5e305a8e28","level":"error"}

@@ -94,7 +94,7 @@ describe('Bookmarks Endpoints', () => {
     context(`Given no bookmarks`, () => {
       it(`responds 404 when bookmark doesn't exist`, () => {
         return supertest(app)
-          .get(`/bookmarks/123`)
+          .get("/bookmarks/123").query({ bookmark_id: 123 })
           .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
           .expect(404, {
             error: { message: `Bookmark Not Found` }
