@@ -67,8 +67,8 @@ bookmarksRouter
 bookmarksRouter
     .route('/bookmarks/:id')
     .get((req, res) => {
-        const { bookmark_id } = req.params;
-        BookmarksService.getById(req.app.get('db'), bookmark_id)
+      const { bookmark_id } = req.params;
+      BookmarksService.getById(req.app.get('db'), bookmark_id)
       .then(bookmark => {
         if (!bookmark) {
           logger.error(`Bookmark with id ${bookmark_id} not found.`)

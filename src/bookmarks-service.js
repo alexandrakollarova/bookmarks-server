@@ -5,6 +5,14 @@ const BookmarksService = {
             .from('bookmarks')
     },
 
+    getById(knex, id) {
+        return knex
+            .from('bookmarks')
+            .select('*')
+            .where('id', id)
+            .first()
+    },
+
     insert(knex, newBookmark) {
         return knex 
             .insert(newBookmark)

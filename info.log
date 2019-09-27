@@ -8,3 +8,25 @@
 {"message":"Description is required","level":"error"}
 {"message":"Bookmark with id 1 deleted.","level":"info"}
 {"message":"Bookmark with id 1 deleted.","level":"info"}
+{"message":"Unauthorized request to path: /","level":"error"}
+{"message":"Unauthorized request to path: /","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks/0d529ff9-8220-4921-adec-e6e597d2ac13","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks/0d529ff9-8220-4921-adec-e6e597d2ac13","level":"error"}
+{"message":"Title is required","level":"error"}
+{"message":"Description is required","level":"error"}
+{"message":"Description is required","level":"error"}
+{"message":"Description is required","level":"error"}
+{"message":"Description is required","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks/e8c77f79-7a2b-46dd-8f57-3d8eb7cde982","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks/e8c77f79-7a2b-46dd-8f57-3d8eb7cde982","level":"error"}
+{"message":"Title is required","level":"error"}
+{"message":"Description is required","level":"error"}
+{"message":"Description is required","level":"error"}
+{"message":"Description is required","level":"error"}
+{"message":"Description is required","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks/e439082b-dfe1-40a4-88eb-07155ccabca3","level":"error"}
