@@ -67,24 +67,20 @@ bookmarksRouter
 bookmarksRouter
     .route('/bookmarks/:id')
     .get((req, res, next) => {
-      //const { bookmark_id } = req.params;
-
-      console.log('params is', req.params);
-
+      
       BookmarksService.getById(req.app.get('db'), Number(req.params.id))
       .then(bookmark => {
         if (!bookmark) {
-          logger.error(`Bookmark with id ${bookmark_id} not found.`)
+          logger.error(`Bookmark with id ${req.params.id} not found.`)
           return res.status(404).json({
             error: { message: `Bookmark Not Found` }
           })
         }
         res.json(serializeBookmark(bookmark))
       })
-      .catch(next)
+      .catch(next => console.log(next))
     })
     .delete((req, res) => {
-        //const { id } = req.params;
  
         const bookmarkID = bookmarks.findIndex(bm => bm.req.params.id == req.params.id);
       
