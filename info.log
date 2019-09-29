@@ -46,3 +46,5 @@
 {"message":"Unauthorized request to path: /bookmarks/95556f79-8526-4507-b8bc-5bbeab762e0e","level":"error"}
 {"message":"Unauthorized request to path: /bookmarks","level":"error"}
 {"message":"Unauthorized request to path: /bookmarks/030ec304-1d84-4c12-ae8b-61398d511ce9","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks/a781e922-5142-43bc-981a-9ba7e1eaf8a5","level":"error"}
