@@ -1,44 +1,25 @@
-require('dotenv').config()
-const express = require('express')
-const morgan = require('morgan')
-const cors = require('cors')
-const helmet = require('helmet')
-const { NODE_ENV } = require('./config')
-const logger = require('./logger')
-const bookmarksRouter = require('./bookmarks/bookmarks-route')
+require('dotenv').config() // need access to all sensitive data
+const express = require('express') // add express framework
+const morgan = require('morgan') // add morgan for logging
+const cors = require('cors') // handle cors
+const helmet = require('helmet') // hides info to prevent attacks againt known vulnerabilities of express
+const { NODE_ENV } = require('./config') // get node environment
+const validateBearerToken = require('./validate-bearer-token')
+const errorHandler = require('./error-handler')
+const bookmarksRouter = require('./bookmarks/bookmarks-route') // all routes
 
-const app = express()
+const app = express() 
 
-const morganOption = (NODE_ENV === 'production')
-  ? 'tiny'
-  : 'common';
+const morganOption = (NODE_ENV === 'production') ? 'tiny': 'common'; // for production move keep it concise
 
-app.use(morgan(morganOption))
-app.use(helmet())
+app.use(morgan(morganOption)) 
+app.use(helmet()) // helmet always before cors
 app.use(cors())
 
-app.use(function validateBearerToken(req, res, next) {
-  const apiToken = process.env.API_TOKEN;
-  const authToken = req.get('Authorization');
+app.use(validateBearerToken)
 
-  if (!authToken || authToken.split(' ')[1] !== apiToken) {
-    logger.error(`Unauthorized request to path: ${req.path}`);
-    return res.status(401).json({error: 'Unauthorized request'})
-  }
-  next()
-})
+app.use(bookmarksRouter) 
 
-app.use(bookmarksRouter)
-
-app.use(function errorHandler(error, req, res, next) {
-   let response;
-   if (NODE_ENV === 'production') {
-     response = { error: { message: 'server error' } }
-   } else {
-     console.error(error)
-     response = { message: error.message, error }
-   }
-   res.status(500).json(response)
-})
+app.use(errorHandler)
 
 module.exports = app
