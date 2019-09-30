@@ -54,7 +54,7 @@ bookmarksRouter
 
     const newBookmark = { title, url, description, rating }
 
-    BookmarksService.insertBookmark(
+    BookmarksService.insert(
       req.app.get('db'),
       newBookmark
     )
@@ -90,7 +90,8 @@ bookmarksRouter
   })
   .delete((req, res, next) => {
     const { bookmark_id } = req.params
-    BookmarksService.deleteBookmark(
+    console.log( bookmark_id )
+    BookmarksService.delete(
       req.app.get('db'),
       bookmark_id
     )

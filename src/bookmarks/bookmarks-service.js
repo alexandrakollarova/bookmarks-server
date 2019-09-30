@@ -21,10 +21,11 @@ const BookmarksService = {
             .then(rows => rows[0])
     },
 
-    deleteBookmark(knex, id) {
+    delete(knex, id) {
         return knex
-            .where({id})
-            .delete()
+            .from('bookmarks')
+            .where('id', id)
+            .del()
     },
 
     updateBookmark(knex, id, newBookmarkFields) {
