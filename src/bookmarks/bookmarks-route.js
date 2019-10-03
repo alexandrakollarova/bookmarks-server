@@ -28,6 +28,9 @@ bookmarksRouter
       .catch(next)
   })
   .post(bodyParser, (req, res, next) => {
+    const { title, url, description, rating } = req.body
+    const newBookmark = { title, url, description, rating }
+    
     for (const field of ['title', 'url', 'rating']) {
       if (!req.body[field]) {
         logger.error(`${field} is required`)
@@ -96,7 +99,7 @@ bookmarksRouter
       logger.error(`Invalid update without required fields`)
       return res.status(400).json({
         error: {
-          message: `Request body must content either 'title', 'url', 'description' or 'rating'`
+          message: `Request body must contain either 'title', 'url', 'description' or 'rating'`
         }
       })
     }
