@@ -314,10 +314,10 @@ describe('Bookmarks Endpoints', () => {
     })
   })
 
-  describe.only(`PATCH /api/bookmarks/:id`, () => {
+  describe(`PATCH /api/bookmarks/:bookmark_id`, () => {
     context(`Given no bookmarks`, () => {
       it(`responds with 404`, () => {
-        const bookmark_id = 12345
+        const bookmark_id = 123456
         return supertest(app)
           .patch(`/api/bookmarks/${bookmark_id}`)
           .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
@@ -327,7 +327,7 @@ describe('Bookmarks Endpoints', () => {
       })
     })
 
-    context(`Given there are bookmarks`, () => {
+    context(`Given there are bookmarks in the database`, () => {
       const testBookmarks = fixtures.makeBookmarksArray()
 
       beforeEach(`insert bookmarks`, () => {
@@ -374,6 +374,32 @@ describe('Bookmarks Endpoints', () => {
             }
           })
       })
+
+      it(`responds with 204 when updating only a subset of fields`, () => {
+              const idToUpdate = 2
+              const updateBookmark = {
+                title: 'updated bookmark title',
+              }
+
+              const expectedBookmark = { // merge 2 objects with spread operator
+                ...testBookmarks[idToUpdate - 1], // original one
+                ...updateBookmark // updated one, the last one overwrites prop values
+              }
+        
+              return supertest(app)
+                .patch(`/api/bookmarks/${idToUpdate}`)
+                .send({
+                  ...updateBookmark,
+                  fieldToIgnore: 'should not be in GET response'
+                })
+                .expect(204)
+                .then(res =>
+                  supertest(app)
+                    .get(`/api/bookmarks/${idToUpdate}`)
+                    .expect(expectedBookmark)
+                )
+      })
+          
     })
   })
 })

@@ -1,9 +1,9 @@
+const path = require('path')
 const express = require('express')
-const { isWebUri } = require('valid-url')
 const xss = require('xss')
 const logger = require('../logger')
 const BookmarksService = require('./bookmarks-service')
-const path = require('path')
+const { getBookmarkValidationError } = require('./bookmark-validator')
 
 const bookmarksRouter = express.Router()
 const bodyParser = express.json()
@@ -37,25 +37,9 @@ bookmarksRouter
       }
     }
 
-    const { title, url, description, rating } = req.body
+    const error = getBookmarkValidationError(newBookmark)
 
-    const ratingNum = Number(rating)
-
-    if (!Number.isInteger(ratingNum) || ratingNum < 0 || ratingNum > 5) {
-      logger.error(`Invalid rating '${rating}' supplied`)
-      return res.status(400).send({
-        error: { message: `'rating' must be a number between 0 and 5` }
-      })
-    }
-
-    if (!isWebUri(url)) {
-      logger.error(`Invalid url '${url}' supplied`)
-      return res.status(400).send({
-        error: { message: `'url' must be a valid URL` }
-      })
-    }
-
-    const newBookmark = { title, url, description, rating }
+    if (error) return res.status(400).send(error)
 
     BookmarksService.insert(
       req.app.get('db'),
@@ -104,27 +88,32 @@ bookmarksRouter
       .catch(next)
   })
   .patch(bodyParser, (req, res, next) => {
-    const {title, url, description, rating} = req.body
-    const bookmarkToUpdate = {title, url, description, rating}
+    const { title, url, description, rating } = req.body
+    const bookmarkToUpdate = { title, url, description, rating }
 
-    const numberOfValue = Object.values(bookmarkToUpdate).filter(Boolean).length
-
-    if (numberOfValue === 0) {
+    const numberOfValues = Object.values(bookmarkToUpdate).filter(Boolean).length
+    if (numberOfValues === 0) {
+      logger.error(`Invalid update without required fields`)
       return res.status(400).json({
         error: {
-          message: `Request body must contain either title, url, description or rating`
+          message: `Request body must content either 'title', 'url', 'description' or 'rating'`
         }
       })
     }
+
+    const error = getBookmarkValidationError(bookmarkToUpdate)
+
+    if (error) return res.status(400).send(error)
+
     BookmarksService.update(
       req.app.get('db'),
       req.params.bookmark_id,
       bookmarkToUpdate
     )
-    .then(numRowsAffected => {
-      res.status(204).end()
-    })
-    .catch(next) // stop the execution and return an error instead
+      .then(numRowsAffected => {
+        res.status(204).end()
+      })
+      .catch(next)
   })
 
 
